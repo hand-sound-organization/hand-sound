@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="酒店辅助管理系统">
+    <title>酒店辅助管理系统</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" th:href="@{/img/favicon.ico}" type="image/x-icon">
+
+    <!-- BASE CSS -->
+
+    <link href="../../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link href="../../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="../../static/css/vendors.css" rel="stylesheet" th:href="@{/css/vendors.css}">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="../../static/css/custom.css" rel="stylesheet" th:href="@{/css/custom.css}">
+
+
+</head>
+
+<body>
+	
+	<div id="page" class="theia-exception">
+		
+	<header class="header menu_fixed">
+		<div id="preloader"><div data-loader="circle-side"></div></div><!-- /Preload -->
+		<!-- /top_menu -->
+		<a href="#menu" class="btn_mobile">
+			<div class="hamburger hamburger--spin" id="hamburger">
+				<div class="hamburger-box">
+					<div class="hamburger-inner"></div>
+				</div>
+			</div>
+		</a>
+		<nav id="menu" class="main-menu">
+			<ul>
+				<li><span><a href="./index.html" th:href="@{/user}">首页</a></span>
+				</li>
+
+				<li><span><a href="./hotelList.html" th:href="@{/user/hotelList}">住宿</a></span>
+
+				</li>
+				<li><span><a href="./foodInfo.html" th:href="@{/user/foodInfo}">饮食</a></span>
+
+				</li>
+				<li><span><a href="./orderList.html"th:href="@{/user/orderList}">订单</a></span>
+
+				</li>
+				<li><span><a href="./userInfo.html" th:href="@{/user/userInfo}">个人信息</a></span>
+
+				</li>
+				<li><span><a href="./aboutUs.html" th:href="@{/user/aboutUs}">关于我们</a></span>
+				</li>
+
+				<li th:if="${session.u_id} != null" ><span><a href="./index.html" th:href="@{/user/logout}">退出</a></span></li>
+			</ul>
+		</nav>
+
+	</header>
+	<!-- /header -->
+	
+	<main>
+		<section class="hero_in hotels_detail">
+			<div class="wrapper">
+				<div class="container">
+					<h1 class="fadeInUp" ><span ></span><h1  class="fadeInUp" th:text="${h_hotel.hotelTranslatedName}"></h1></h1>  <!--	 <p style="width: 500px" ></p>-->
+				</div>
+				<span class="magnific-gallery">
+					<a href="../../static/img/gallery/hotel_list_1.jpg"  th:href="${h_hotel.photo1}" class="btn_photos" title="Photo title" data-effect="mfp-zoom-in">查看酒店照片</a>
+					<a href="../../static/img/gallery/hotel_list_2.jpg" th:href="${h_hotel.photo2}" title="Photo title" data-effect="mfp-zoom-in"></a>
+					<a href="../../static/img/gallery/hotel_list_3.jpg" th:href="${h_hotel.photo3}" title="Photo title" data-effect="mfp-zoom-in"></a>
+				</span>
+			</div>
+		</section>
+		<!--/hero_in-->
+
+		<div class="filters_listing sticky_horizontal">
+			<div class="container">
+				<ul class="clearfix">
+					<li>
+						<a class="btn_map" data-toggle="collapse" href="#collapseMap" aria-expanded="false" aria-controls="collapseMap" data-text-swap="Hide map" data-text-original="查看地图">查看地图</a>
+					</li>
+				</ul>
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /filters -->
+<!--下面是地图的展示区域-->
+		<div class="collapse" id="collapseMap">
+			<div id="map" class="map"></div>
+			<input id="longitude" type="hidden" style="width:100px; margin-right:10px;" th:value="${h_hotel.longitude}"/>
+			<input id="latitude" type="hidden" style="width:100px; margin-right:10px;" th:value="${h_hotel.latitude}"/>
+		</div>
+		<!-- End Map -->
+
+
+
+		<div class="bg_color_1">
+			<div class="container margin_60_35"  style="padding-left: 70px;">
+				<div class="row">
+					<div class="col-lg-8">
+						<section id="description">
+							<h2>订单详情</h2>
+
+							<p th:text="${'订单号：'+h_order.oId}"></p>
+							<p th:text="${'酒店名称：'+h_order.hotelTranslatedName}"></p>
+							<p th:text="${'下单时间：'+#dates.format(h_order.getoOrdertime(), 'yyyy-MM-dd')}"></p>
+							<p th:text="${'预订房型：'+h_order.rtType}"></p>
+							<p th:text="${'入住时间：'+#dates.format(h_order.getoCheckin(), 'yyyy-MM-dd')}"></p>
+							<p th:text="${'退房时间：'+#dates.format(h_order.getoCheckout(), 'yyyy-MM-dd')}"></p>
+							<p th:text="${'联系人电话：'+h_order.oTel}"></p>
+							<p th:text="${'房间号：'+h_order.rNumber}"></p>
+							<p th:text="${'价格：'+h_order.oPrice}"></p>
+							<div class="row">
+<!--								<div class="col-lg-6">-->
+<!--								</div>-->
+<!--								<div class="col-lg-6">-->
+<!--								</div>-->
+							</div>
+							<!-- /row -->
+							<hr>
+							<h3>酒店地址</h3>
+							<div id="instagram-feed-hotel" class="clearfix">
+
+							</div>
+							<p th:text="${h_hotel.country}" style="margin-bottom: 0px"></p>
+							<p th:text="${h_hotel.city}" style="margin-bottom: 0px"></p>
+							<p th:text="${h_hotel.addressline}"></p>
+							<br>
+							<br>
+						</section>
+						<!-- /section -->
+
+<!--						下面是取消订单按钮-->
+						<div class="row">
+							<div class="col-sm-8">
+								<div class="form-group">
+									<br>
+									<a th:href="@{'/user/cancelOrder?o_id='+${h_order.oId}}">
+									<input type="submit" class="btn_cancel" value="取消订单" id="cancel_btn">
+									</a>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+		<!-- /bg_color_1 -->
+			</div>
+			</div>
+			</div>
+	</main>
+	<!--/main-->
+	
+	<footer>
+		<div class="container margin_60_35">
+			<div class="row">
+				<div class="col-lg-5 col-md-12 p-r-5">
+				</div>
+				<div class="col-lg-3 col-md-6 ml-lg-auto">
+				</div>
+				<div class="col-lg-3 col-md-6">
+				</div>
+			</div>
+			<!--/row-->
+			<hr>
+			<div class="row">
+				<div class="col-lg-6">
+
+				</div>
+				<div class="col-lg-6">
+					<ul id="additional_links">
+						<li><span>© 2019 酒店辅助管理系统</span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--/footer-->
+	</div>
+	<!-- page -->3
+	
+
+	<!-- /Sign In Popup -->
+	
+	<div id="toTop"></div><!-- Back to top button -->
+
+	<!-- COMMON SCRIPTS -->
+	<script src="../../static/js/jquery-2.2.4.min.js" th:src="@{/js/jquery-2.2.4.min.js}"></script>
+	<script src="../../static/js/common_scripts.js" th:src="@{/js/common_scripts.js}"></script>
+	<script src="../../static/js/main.js" th:src="@{/js/main.js}"></script>
+	<script src="../../static/assets/validate.js" th:src="@{/assets/validate.js}"></script>
+	
+	<!-- Map 
+	<script src="http://maps.googleapis.com/maps/api/js"></script>
+	<script src="js/map_single_hotel.js"></script>
+	<script src="js/infobox.js"></script>
+	-->
+	<!-- DATEPICKER  -->
+	<script>
+	$(function() {
+	  $('input[name="dates"]').daterangepicker({
+		  autoUpdateInput: false,
+		  opens: 'left',
+		  locale: {
+			  cancelLabel: 'Clear'
+		  }
+	  });
+	  $('input[name="dates"]').on('apply.daterangepicker', function(ev, picker) {
+		  $(this).val(picker.startDate.format('MM-DD-YY') + ' > ' + picker.endDate.format('MM-DD-YY'));
+	  });
+	  $('input[name="dates"]').on('cancel.daterangepicker', function(ev, picker) {
+		  $(this).val('');
+	  });
+	});
+	</script>
+
+	<!-- INPUT QUANTITY  -->
+	<script src="../../static/js/input_qty.js" th:src="@{/js/input_qty.js}"></script>
+	
+	<!-- INSTAGRAM FEED  -->
+	<script>
+	$(window).on('load', function(){
+			"use strict";
+			$.instagramFeed({
+				'username': 'hotelwailea',
+				'container': "#instagram-feed-hotel",
+				'display_profile': false,
+				'display_biography': false,
+				'display_gallery': true,
+				'get_raw_json': false,
+				'callback': null,
+				'styling': true,
+				'items': 12,
+				'items_per_row': 6,
+				'margin': 1 
+			});
+		});
+	</script>
+
+<!--	下面是百度api-->
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=PlhFWpA02aoURjAOpnWcRGqw7AI8EEyO"></script>
+	<script type="text/javascript">
+
+		// 百度地图API功能
+		var map = new BMap.Map("map");
+		var longitude = $("#longitude").val();
+		var latitude = $("#latitude").val();
+		var point = new BMap.Point(longitude,latitude);  // 中心位置
+		map.addControl(new BMap.NavigationControl());   //平移缩放控件
+		map.addControl(new BMap.ScaleControl());        //比例尺
+		map.addControl(new BMap.OverviewMapControl());  //缩略地图
+		map.addControl(new BMap.MapTypeControl());      //地图类型
+		map.centerAndZoom(point,15);
+		var marker = new BMap.Marker(point);//创建标注
+		map.enableScrollWheelZoom(true);
+		map.addOverlay(marker);              // 将标注添加到地图中
+		marker.addEventListener('click', function (e) {
+			// 通过点击的坐标创建一个点对象，添加标签
+			var point = new BMap.Point(e.point.lng, e.point.lat);
+			var opts = {
+				title: hotelTranslatedName,
+				enableMessage: false,
+			};
+			var infowindow = new BMap.InfoWindow("<br/>", opts);
+			map.openInfoWindow(infowindow, point);
+		});
+
+		var geolocation = new BMap.Geolocation();
+		geolocation.getCurrentPosition(function(r){
+			if(this.getStatus() == BMAP_STATUS_SUCCESS){
+				var mk = new BMap.Marker(r.point);
+				map.addOverlay(mk);
+				map.panTo(r.point);
+				mk.addEventListener('click', function (e) {
+					// 通过点击的坐标创建一个点对象，添加标签
+					var point = new BMap.Point(e.point.lng, e.point.lat);
+					var opts = {
+						title: "您 的 位 置 在 这 里",
+						enableMessage: false,
+					}
+					var infowindow = new BMap.InfoWindow("<br/>请跟随导航前进", opts);
+					map.openInfoWindow(infowindow, point);
+				});
+				// alert('您的位置：'+r.point.lng+','+r.point.lat);
+				var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+				driving.search(r.point,point);
+			}
+			else {
+				alert('failed'+this.getStatus());
+			}
+		},{enableHighAccuracy: true})
+	</script>
+  
+</body>
+</html>
+<style itemscope>
+	p{
+		margin-bottom: 0;
+	}
+	.map{
+		width:70% !important;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.btn_cancel{
+		transition: all 0.3s ease-in-out;
+		color: #fff;
+		font-weight: 600;
+		font-size: 14px;
+		font-size: 0.875rem;
+		border: 0;
+		padding: 0 25px;
+		height: 50px;
+		cursor: pointer;
+		outline: none;
+		width: 100%;
+		-webkit-border-radius: 0 3px 3px 0;
+		-moz-border-radius: 0 3px 3px 0;
+		-ms-border-radius: 0 3px 3px 0;
+		border-radius: 0 3px 3px 0;
+		background-color: #00a7d0;
+		margin-right: -1px;
+	}
+</style>

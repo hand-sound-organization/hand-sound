@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Admin的网页</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}" href="../../static/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" th:href="@{/bower_components/font-awesome/css/font-awesome.min.css}" href="../../static/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" th:href="@{/bower_components/Ionicons/css/ionicons.min.css}" href="../../static/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../static/dist/css/AdminLTE.css" th:href="@{/dist/css/AdminLTE.css}">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect. -->
+  <link rel="stylesheet" href="../../static/dist/css/skins/skin-blue.min.css" th:href="@{/dist/css/skins/skin-blue.min.css}">
+  <link rel="stylesheet" href="../../static/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" th:href="@{/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css}">
+  <style>#a{}</style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini" >
+
+<div class="wrapper">
+
+  <!-- Main Header -->
+  <header class="main-header">
+
+    <!-- Logo -->
+    <a href="starter.html" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>D</b>m</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>A</b>dmin</span>
+    </a>
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <!-- <i class="fa fa-dedent"></i> -->
+        <!-- <span class="sr-only">Toggle navigation</span> -->
+      </a>
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <li class="dropdown tasks-menu">
+            <!-- Menu Toggle Button -->
+            <a href="./login.html"   th:href="@{/admin/logout}">
+              退出
+            </a>
+          </li>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+
+      <!-- Sidebar user panel (optional) -->
+
+      <!-- search form (Optional) -->
+      
+      <!-- /.search form -->
+
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <!-- <li class="header">HEADER</li> -->
+        <!-- Optionally, you can add icons to the links -->
+        <li><a href="adminInfo.html" th:href="@{/admin/userList}"><i class="fa  fa-file-o"></i> <span>用户列表</span></a></li>
+
+        <li><a href="alterInfo.html" th:href="@{/admin/adminList}"><i class="fa  fa-file-o"></i> <span>管理员列表</span></a></li>
+
+        <li><a href="./orderList.html" th:href="@{/admin/orderList}"><i class="fa  fa-file-o"></i> <span>订单列表</span></a></li>
+        <li><a href="hotelList.html" th:href="@{/admin/hotelList}"><i class="fa  fa-paperclip"></i><span>酒店信息</span></a></li>
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        用户列表
+        <small>Hotel infomation</small>
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+<!--      搜索栏        !!!!!!!!!!!!!!!!!!!!-->
+      <form th:action="@{'/admin/userSearch'}" method="get" class="sidebar-form whitebkg">
+        <div class="input-group">
+          <input name="type" th:value="按名称搜索" style="display: none">
+          <input type="text" name="content" class="form-control" placeholder="Search..." required="required">
+          <span class="input-group-btn">
+              <button type="submit" name="search"  onclick="localRefresh" class="btn btn-flat"><i class="fa fa-search"></i>
+              </button>
+            </span>
+        </div>
+      </form>
+
+
+    <section class="content" >
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-body">
+              <table id="example2" class="table table-bordered table-hover" >
+                <thead>
+                <tr>              <!--列表标题-->
+                  <th>用户ID</th>
+                  <th>用户账号</th>
+                  <th>用户姓名</th>
+                  <th>用户电话</th>
+                  <th>修改</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="user : ${users}">
+                    <td th:text="${user.uId}">
+                    </td>
+                    <td th:text="${user.uAccount}">
+                    </td>
+                    <td th:text="${user.uName}">
+                    </td>
+                    <td th:text="${user.uTel}">
+                    </td>
+                    <td>
+                      <a th:href="@{'/admin/userInfo?u_id='+ ${user.uId}}">
+                        <button type="submit" class="btn btn-block btn-info hotel-info-btn">修改</button>
+                      </a>
+                    </td>
+                  </tr>
+
+
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>用户ID</th>
+                  <th>用户账号</th>
+                  <th>用户姓名</th>
+                  <th>用户电话</th>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <!-- To the right -->
+
+  </footer>
+
+
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED JS SCRIPTS -->
+
+<!-- jQuery 3 -->
+<script src="../../static/bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="../../static/bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- AdminLTE App -->
+<script src="../../static/dist/js/adminlte.min.js" th:src="@{/dist/js/adminlte.min.js}"></script>
+<script src="../../static/bower_components/datatables.net/js/jquery.dataTables.min.js" th:src="@{/bower_components/datatables.net/js/jquery.dataTables.min.js}"></script>
+<script src="../../static/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js" th:src="@{/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+<!-- SlimScroll -->
+<script src="../../static/bower_components/jquery-slimscroll/jquery.slimscroll.min.js" th:src="@{/bower_components/jquery-slimscroll/jquery.slimscroll.min.js}"></script>
+<!-- FastClick -->
+<script src="../../static/bower_components/fastclick/lib/fastclick.js" th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
+
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. -->
+
+</body>
+</html>
+
+<style>
+  .skin-blue .sidebar-form input[type="text"], .skin-blue .sidebar-form .btn{
+    background: white !important;
+  }
+
+  .form-control{
+    background: white !important;
+  }
+.whitebkg{
+   background: white !important;
+ }
+</style>
+<script>
+  $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+
+</script>
+

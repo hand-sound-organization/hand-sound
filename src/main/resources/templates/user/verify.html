@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
+    <meta name="author" content="Ansonika">
+    <title>酒店辅助管理系统</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon"  type="image/x-icon" href="../../static/img/favicon.ico" th:href="@{/img/favicon.ico}">
+
+
+    <!-- BASE CSS -->
+	<link href="../../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link href="../../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+	<link href="../../static/css/vendors.css" rel="stylesheet" th:href="@{/css/vendors.css}">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="../../static/css/custom.css" rel="stylesheet" th:href="@{/css/custom.css}">
+
+</head>
+
+<body id="verify_bg" >
+	
+	<nav id="menu" class="fake_menu"></nav>
+	
+	<div id="preloader">
+		<div data-loader="circle-side"></div>
+	</div>
+	<!-- End Preload -->
+	
+	<div id="login">
+		<aside>
+
+			  <form action="/user/verify" method="post">
+
+				<div class="divider"></div>
+				<div class="form-group">
+					<label>验证码</label>
+					<input type="text" class="form-control" name="content" id="content" required="required">
+					<i class=" ti-email"></i>
+				</div>
+				  <input type="text" th:value="${email}" style="display: none" id="email" name="email">
+				<button type="submit" class="btn_1 rounded full-width">提交</button>
+			</form>
+			<div class="copy">2019 酒店辅助管理系统</div>
+		</aside>
+	</div>
+	<!-- /login -->
+		
+	<!-- COMMON SCRIPTS -->
+    <script src="../../static/js/jquery-2.2.4.min.js" th:src="@{/js/jquery-2.2.4.min.js}"></script>
+    <script src="../../static/js/common_scripts.js" th:src="@{/js/common_scripts.js}"></script>
+    <script src="../../static/js/main.js" th:src="@{/js/main.js}"></script>
+	<script src="../../static/assets/validate.js" th:src="@{/assets/validate.js}"></script>
+  
+</body>
+</html>
+
+<style itemscope>
+	.error_account{
+		transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		/*background: white;*/
+		border-radius: 3px;
+		/*border: 1px solid #d2d8dd;*/
+		color: red;
+		/*height: 42px;*/
+		width: 100%;
+		overflow: hidden; /*防止内容超出容器或者产生自动换行*/
+		/*line-height: 42px; !*设置line-height与父级元素的height相等*!*/
+		margin-top: 1rem;
+		padding-left: 10px;
+		font-weight: bold;
+	}
+	label{
+		color: white;
+	}
+	.form-group{
+		margin-bottom: 1rem !important;
+	}
+</style>

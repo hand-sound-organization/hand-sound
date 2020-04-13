@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Admin的网页</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="../../static/bower_components/bootstrap/dist/css/bootstrap.min.css" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../static/bower_components/font-awesome/css/font-awesome.min.css" th:href="@{/bower_components/font-awesome/css/font-awesome.min.css}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="../../static/bower_components/Ionicons/css/ionicons.min.css" th:href="@{/bower_components/Ionicons/css/ionicons.min.css}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../static/dist/css/AdminLTE.css" th:href="@{/dist/css/AdminLTE.css}">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect. -->
+  <link rel="stylesheet" href="../../static/dist/css/skins/skin-blue.min.css" th:href="@{/dist/css/skins/skin-blue.min.css}">
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <!-- Main Header -->
+  <header class="main-header">
+
+    <!-- Logo -->
+    <a href="./starter.html" th:href="@{/admin/starter}" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>D</b>m</span>     
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>A</b>dmin</span>
+    </a>
+
+    <!-- Header Navbar -->
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <li class="dropdown tasks-menu">
+          <!-- Menu Toggle Button -->
+          <a href="./login.html"   th:href="@{/admin/logout}">
+            退出
+          </a>
+        </li>
+        </li>
+      </ul>
+    </div>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <!-- search form (Optional) -->
+      
+      <!-- /.search form -->
+
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <!-- <li class="header">HEADER</li> -->
+        <!-- Optionally, you can add icons to the links -->
+
+        <li><a href="adminInfo.html" th:href="@{/admin/userList}"><i class="fa  fa-file-o"></i> <span>用户列表</span></a></li>
+
+        <li><a href="alterInfo.html" th:href="@{/admin/adminList}"><i class="fa  fa-file-o"></i> <span>管理员列表</span></a></li>
+
+        <li><a href="./orderList.html" th:href="@{/admin/orderList}"><i class="fa  fa-file-o"></i> <span>订单列表</span></a></li>
+
+         <li><a href="hotelList.html" th:href="@{/admin/hotelList}"><i class="fa  fa-paperclip"></i><span>酒店信息</span></a></li>
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        查看用户列表
+        <small>personal infomation</small>
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+      <!--------------------------
+        | Your Page Content Here |
+        -------------------------->
+        <div class="box box-warning user_table">
+            <!-- <div class="box-header with-border">
+               <h3 class="box-title">General Elements</h3> 
+            </div> -->
+            <!-- /.box-header -->
+            <div class="box-body">
+              <form role="form" action="/admin/adminUpdate" method="post">
+                <!-- text input -->
+                <div class="form-group">
+                  <label>账号</label>
+                  <input type="text" class="form-control" th:value="${adminInfo.aAccount}" name="a_account">
+                </div>
+                <div class="form-group" type='password'>
+                  <label>密码</label>
+                  <input type="text" class="form-control" th:value="${adminInfo.aPassword}" name="a_password">
+                </div>
+                <div class="form-group">
+                    <label>权限</label>
+                    <input type="text" class="form-control" th:value="${adminInfo.aPermission}" name="a_permission">
+                </div>
+
+                <input type="text" th:value="${adminInfo.aId}" style="display: none" name="a_id">
+
+                <button type="submit" class="btn btn-block btn-info hotel-info-btn">更改</button>
+    <!-- /.content -->
+              </form>
+  </div>
+  <!-- /.content-wrapper -->
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <!-- To the right -->
+
+  </footer>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED JS SCRIPTS -->
+
+<!-- jQuery 3 -->
+<script src="../../static/bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="../../static/bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- AdminLTE App -->
+<script src="../../static/dist/js/adminlte.min.js" th:src="@{/dist/js/adminlte.min.js}"></script>
+
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. -->
+
+    </section>
+  </div>
+</div>
+</body>
+</html>
+<style>
+/* .user_table{
+     width: 50%; 
+     margin-right: auto;
+    margin-left: auto; 
+} */
+</style>
